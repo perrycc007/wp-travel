@@ -44,18 +44,60 @@ do_action( 'wp_travel_before_edit_account_form' ); ?>
 		</div>
 	</div>
 
-	<div class="form-horizontal clearfix">
+		<div class="form-horizontal clearfix">
 		<div class="form-group gap-20">
-			<label class="col-sm-4 col-md-3 control-label"><?php esc_html_e( 'Email Address:', 'wp-travel' ); ?></label>
+			<label class="col-sm-4 col-md-3 control-label"><?php esc_html_e( '個人電郵:', 'wp-travel' ); ?></label>
 			<div class="col-sm-8 col-md-9">
 			<input type="email" class="wp-travel-Input form-control wp-travel-Input--email input-text" name="account_email" id="account_email" value="<?php echo esc_attr( $user->user_email ); ?>" />
+			</div>
+		</div>
+	</div>
+	
+	<div class="form-horizontal clearfix">
+		<div class="form-group gap-20">
+			<label class="col-sm-4 col-md-3 control-label"><?php esc_html_e( '聯絡人:', 'wp-travel' ); ?></label>
+			<div class="col-sm-8 col-md-9">
+			<input type="text" class="wp-travel-Input form-control wp-travel-Input--text input-text" name="account_contact_name" id="account_contact_name" value="<?php echo esc_attr( $user->user_contact_name ); ?>" />
 			</div>
 		</div>
 	</div>
 
 	<div class="form-horizontal clearfix">
 		<div class="form-group gap-20">
-			<label class="col-sm-4 col-md-3 control-label"><?php esc_html_e( 'Change password', 'wp-travel' ); ?></label>
+			<label class="col-sm-4 col-md-3 control-label"><?php esc_html_e( '聯絡人關係:', 'wp-travel' ); ?></label>
+			<div class="col-sm-8 col-md-9">
+			<input type="text" class="wp-travel-Input form-control wp-travel-Input--text input-text" name="account_contact_relationship" id="account_contact_relationship" value="<?php echo esc_attr( $user->	user_contact_relationship ); ?>" />
+			</div>
+		</div>
+	</div>
+
+	<div class="form-horizontal clearfix">
+		<div class="form-group gap-20">
+			<label class="col-sm-4 col-md-3 control-label"><?php esc_html_e( '聯絡人電郵:', 'wp-travel' ); ?></label>
+			<div class="col-sm-8 col-md-9">
+			<input type="text" class="wp-travel-Input form-control wp-travel-Input--text input-text" name="account_contact_email" id="account_contact_email" value="<?php echo esc_attr( $user->user_contact_email ); ?>" />
+			</div>
+		</div>
+	</div>
+
+	<div class="form-horizontal clearfix">
+		<div class="form-group gap-20">
+			<label class="col-sm-4 col-md-3 control-label"><?php esc_html_e( '聯絡人電話:', 'wp-travel' ); ?></label>
+			<div class="col-sm-8 col-md-9">
+			<input type="text" class="wp-travel-Input form-control wp-travel-Input--text input-text" name="account_contact_phone_number" id="account_contact_phone_number" value="<?php echo esc_attr( $user->user_contact_phone_number ); ?>" />
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+	<div class="form-horizontal clearfix">
+		<div class="form-group gap-20">
+			<label class="col-sm-4 col-md-3 control-label"><?php esc_html_e( '更改密碼', 'wp-travel' ); ?></label>
 			<div class="col-sm-8 col-md-9">
 				<div class="onoffswitch">
 					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="wp-travel-dsh-change-pass-switch">
@@ -71,7 +113,7 @@ do_action( 'wp_travel_before_edit_account_form' ); ?>
 	<div id="wp-travel-dsh-change-pass" style="display:none;" class="ch-password clearfix">
 		<div class="form-horizontal clearfix">
 			<div class="form-group gap-20">
-				<label class="col-sm-4 col-md-3 control-label"><?php esc_html_e( 'Current Password (leave blank to leave unchanged):', 'wp-travel' ); ?></label>
+				<label class="col-sm-4 col-md-3 control-label"><?php esc_html_e( '現有密碼 (留空保持不變):', 'wp-travel' ); ?></label>
 				<div class="col-sm-8 col-md-9">
 					<input type="password" class="wp-travel-Input form-control wp-travel-Input--password input-text" name="password_current" id="password_current" />
 				</div>
@@ -79,7 +121,7 @@ do_action( 'wp_travel_before_edit_account_form' ); ?>
 		</div>
 		<div class="form-horizontal clearfix">
 			<div class="form-group gap-20">
-				<label class="col-sm-4 col-md-3 control-label"><?php esc_html_e( 'New Password (leave blank to leave unchanged):', 'wp-travel' ); ?></label>
+				<label class="col-sm-4 col-md-3 control-label"><?php esc_html_e( '新密碼 (留空保持不變):', 'wp-travel' ); ?></label>
 				<div class="col-sm-8 col-md-9">
 					<input type="password" class="wp-travel-Input form-control wp-travel-Input--password input-text" name="password_1" id="password_1" />
 				</div>
@@ -87,7 +129,7 @@ do_action( 'wp_travel_before_edit_account_form' ); ?>
 		</div>
 		<div class="form-horizontal clearfix">
 			<div class="form-group gap-20">
-				<label class="col-sm-4 col-md-3 control-label"><?php esc_html_e( 'Confirm New Password (leave blank to leave unchanged)', 'wp-travel' ); ?></label>
+				<label class="col-sm-4 col-md-3 control-label"><?php esc_html_e( '確認新密碼 (留空保持不變)', 'wp-travel' ); ?></label>
 				<div class="col-sm-8 col-md-9">
 					<input type="password" class="wp-travel-Input form-control wp-travel-Input--password input-text" name="password_2" id="password_2" />
 				</div>
@@ -101,7 +143,7 @@ do_action( 'wp_travel_before_edit_account_form' ); ?>
 
 	<p>
 		<?php wp_nonce_field( 'wp_travel_save_account_details', 'wp_account_details_security' ); ?>
-		<input type="submit" class="wp-travel-Button button" name="wp_travel_save_account_details" value="<?php esc_attr_e( 'Save changes', 'wp-travel' ); ?>">
+		<input type="submit" class="wp-travel-Button button" name="wp_travel_save_account_details" value="<?php esc_attr_e( '存儲', 'wp-travel' ); ?>">
 		<input type="hidden" name="action" value="wp_travel_save_account_details" />
 	</p>
 

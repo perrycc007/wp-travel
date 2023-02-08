@@ -4,8 +4,8 @@ $bookings_glance    = is_array( $bookings_glance ) ? array_unique( $bookings_gla
 $biling_glance_data = $args['biling_glance_data'];
 ?>
 <div>
-  <p><?php esc_html_e( 'Hello, ', 'wp-travel' ); ?><strong><?php echo esc_html( $current_user->display_name ); ?></strong></p>
-  <p><?php esc_html_e( 'From your account dashboard you can view your recent Bookings, manage your billing address and edit your password and account details.', 'wp-travel' ); ?></p>
+  <p><?php esc_html_e( '您好, ', 'wp-travel' ); ?><strong><?php echo esc_html( $current_user->nickname ); ?></strong></p>
+  <p><?php esc_html_e( '您可以在此查看您最近的預訂、管理您的賬單地址以及編輯您的密碼和帳戶詳情', 'wp-travel' ); ?></p>
   <div class="lists clearfix">
 	<div class="list-item">
 	  <div class="list-item-wrapper">

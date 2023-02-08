@@ -43,15 +43,33 @@ if ( ! empty( $_POST['register'] ) && wp_verify_nonce( $nonce_value, 'wp-travel-
 				<h3><?php esc_html_e( 'Register', 'wp-travel' ); ?></h3>
 				<?php if ( 'no' === $generate_username_from_email ) : ?>
 					<span class="user-name">
-						<input name="username" type="text" placeholder="<?php echo esc_attr__( 'Username', 'wp-travel' ); ?>"/>
+						<input name="username" type="text" placeholder="<?php echo esc_attr__( '英國電話 eg. 7120123235', 'wp-travel' ); ?>"/>
 					</span>
 				<?php endif; ?>
-				<span class="user-email">
-					<input name="email" type="text" placeholder="<?php echo esc_attr__( 'Email Address', 'wp-travel' ); ?>"/>
+				<span class="user-name">
+						<input name="account_first_name" type="text" placeholder="<?php echo esc_attr__( 'First name:', 'wp-travel' ); ?>"/>
+					</span>
+					<span class="user-name">
+						<input name="account_last_name" type="text" placeholder="<?php echo esc_attr__( 'Last name:', 'wp-travel' ); ?>"/>
+					</span>
+					<span class="user-email">
+					<input name="email" type="text" placeholder="<?php echo esc_attr__( '個人電郵', 'wp-travel' ); ?>"/>
 				</span>
+					<span class="user-name">
+						<input name="account_contact_name" type="text" placeholder="<?php echo esc_attr__( '聯絡人:', 'wp-travel' ); ?>"/>
+					</span>
+					<span class="user-name">
+						<input name="account_contact_email" type="text" placeholder="<?php echo esc_attr__( '聯絡人關係:', 'wp-travel' ); ?>"/>
+					</span>
+					<span class="user-name">
+						<input name="account_contact_phone_number" type="text" placeholder="<?php echo esc_attr__( '聯絡人電話:', 'wp-travel' ); ?>"/>
+					</span>
+					<span class="user-name">
+						<input name="account_contact_relationship" type="text" placeholder="<?php echo esc_attr__( '聯絡人關係:', 'wp-travel' ); ?>"/>
+					</span>
 				<?php if ( 'no' === $generate_user_password ) : ?>
 					<span class="user-password">
-						<input name="password" type="password" placeholder="<?php echo esc_attr__( 'Password', 'wp-travel' ); ?>"/>
+						<input name="password" type="password" placeholder="<?php echo esc_attr__( '密碼', 'wp-travel' ); ?>"/>
 					</span>
 				<?php endif; ?>
 				<?php do_action( 'wp_travel_after_registration_form_password', $settings ); ?>
@@ -69,29 +87,33 @@ if ( ! empty( $_POST['register'] ) && wp_verify_nonce( $nonce_value, 'wp-travel-
 		<?php endif; ?>
 			<!-- Login Form -->
 			<form method="post" class="login-form" <?php echo esc_attr( $login_form_toogle ); ?> >
-					<h3><?php esc_html_e( 'Login', 'wp-travel' ); ?></h3>
+					<h3><?php esc_html_e( '登入', 'wp-travel' ); ?></h3>
 					<span class="user-username">
-						<input name="username" type="text" placeholder="<?php echo esc_attr__( 'Username', 'wp-travel' ); ?>"/>
+						<input name="username" type="text" placeholder="<?php echo esc_attr__( '英國電話號碼', 'wp-travel' ); ?>"/>
 					</span>
 					<span class="user-password">
-						<input name="password" type="password" placeholder="<?php echo esc_attr__( 'Password', 'wp-travel' ); ?>"/>
+						<input name="password" type="password" placeholder="<?php echo esc_attr__( '密碼', 'wp-travel' ); ?>"/>
 					</span>
 					<div class="wrapper">
 
 						<div class="float-left">
 							<input class="" name="rememberme" type="checkbox" id="rememberme" value="forever" />
 							<?php wp_nonce_field( 'wp-travel-login', 'wp-travel-login-nonce' ); ?>
-							<label for="rememberme"><?php esc_html_e( 'Remember me', 'wp-travel' ); ?></label>
+							<label for="rememberme"><?php esc_html_e( '記住帳戶', 'wp-travel' ); ?></label>
 						</div>
 						<div class="float-right">
 							<p class="info">
-								<a href="<?php echo esc_url( wptravel_lostpassword_url() ); ?>"><?php echo esc_html__( 'Forgot Password ?', 'wp-travel' ); ?></a>
+								<a href="<?php echo esc_url( wptravel_lostpassword_url() ); ?>"><?php echo esc_html__( '忘記密碼 ?', 'wp-travel' ); ?></a>
 							</p>
 						</div>
 					</div>
-				<button  type="submit" name="login" value="<?php esc_attr_e( 'Login', 'wp-travel' ); ?>" ><?php esc_attr_e( 'Login', 'wp-travel' ); ?></button>
+				<button  type="submit" name="login" value="<?php esc_attr_e( '登入', 'wp-travel' ); ?>" ><?php esc_attr_e( 'Login', 'wp-travel' ); ?></button>
 				<?php if ( 'yes' === $enable_my_account_customer_registration ) : ?>
-					<p class="message"><?php echo esc_html__( 'Not registered?', 'wp-travel' ); ?> <a href="#"><?php echo esc_html__( 'Create an account', 'wp-travel' ); ?></a></p>
+					<p class="message"><?php echo esc_html__( '未有帳戶?', 'wp-travel' ); ?> <a href="#"><?php echo esc_html__( 'Create an account', 'wp-travel' ); ?></a></p>
+				<!-- <p>
+					<?php echo esc_html__( '未有帳戶?', 'wp-travel' ); ?>
+					<a href="https://prodeeptravel.com/register/"><?php echo esc_html__( '申請帳戶', 'wp-travel' ); ?></a>
+				</p> -->
 				<?php endif; ?>
 			</form>
 		</div>

@@ -113,7 +113,15 @@ class Wp_Travel_Form_Handler {
 
 			$username = 'no' === $generate_username_from_email ? trim( sanitize_text_field( wp_unslash( $_POST['username'] ) ) ) : ''; // phpcs:ignore
 			$password = 'no' === $generate_user_password ? sanitize_text_field( wp_unslash( $_POST['password'] ) ) : ''; // phpcs:ignore
-			$email    = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
+			$email    = isset( $_POST['email'] ) ? trim( sanitize_text_field( wp_unslash( $_POST['email'] ) )) : '';
+			$first_name    = isset( $_POST['account_first_name'] ) ? trim( sanitize_text_field( wp_unslash( $_POST['account_first_name'] ) )) : '';
+			$last_name    = isset( $_POST['account_last_name'] ) ? trim( sanitize_text_field( wp_unslash( $_POST['account_last_name'] ) )) : '';
+			$contact_name    = isset( $_POST['account_contact_name'] ) ? trim( sanitize_text_field( wp_unslash( $_POST['account_contact_name'] )) ) : '';
+			$contact_email    = isset( $_POST['account_contact_email'] ) ? trim( sanitize_text_field( wp_unslash( $_POST['account_contact_email'] ) ) ): '';
+			$contact_phone_number    = isset( $_POST['account_contact_phone_number'] ) ?trim( sanitize_text_field( wp_unslash( $_POST['account_contact_phone_number'] )) ) : '';
+			$contact_relationship    = isset( $_POST['account_contact_relationship'] ) ? trim( sanitize_text_field( wp_unslash( $_POST['account_contact_relationship'] )) ) : '';			
+
+
 			try {
 				$validation_error = new WP_Error();
 				$validation_error = apply_filters( 'wp_travel_process_registration_errors', $validation_error, $username, $password, $email );
@@ -122,7 +130,7 @@ class Wp_Travel_Form_Handler {
 					throw new Exception( $validation_error->get_error_message() );
 				}
 
-				$new_customer = wptravel_create_new_customer( sanitize_email( $email ), $username, $password );
+				$new_customer = wptravel_create_new_customer( sanitize_email( $email ), $username, $password,$first_name,$last_name,$contact_name,$contact_email,$contact_phone_number,$contact_relationship );
 
 				if ( is_wp_error( $new_customer ) ) {
 					throw new Exception( $new_customer->get_error_message() );
@@ -195,12 +203,25 @@ class Wp_Travel_Form_Handler {
 
 		if ( $user instanceof WP_User ) {
 			if ( empty( $posted_fields['password_1'] ) ) {
-				WPTravel()->notices->add( __( 'Please enter your password.', 'wp-travel' ), 'error' );
+				WPTravel()->notices->add( __( '請輸入密碼.', 'wp-travel' ), 'error' );
+			}
+
+			if ( preg_match('/[A-Za-z]/', $posted_fields['password_1']) == 0)
+			{
+				WPTravel()->notices->add( __( '密碼只至少要有一個英文字', 'wp-travel' ), 'error' );
+			}
+
+			if ( preg_match('/[0-9]/', $posted_fields['password_1']) == 0)
+			{
+				WPTravel()->notices->add( __( '密碼只至少要有一個數字', 'wp-travel' ), 'error' );
 			}
 
 			if ( $posted_fields['password_1'] !== $posted_fields['password_2'] ) {
 				WPTravel()->notices->add( __( 'Passwords do not match', 'wp-travel' ), 'error' );
 			}
+
+
+
 
 			$errors = new WP_Error();
 
@@ -336,10 +357,21 @@ class Wp_Travel_Form_Handler {
 		$current_first_name = $current_user->first_name;
 		$current_last_name  = $current_user->last_name;
 		$current_email      = $current_user->user_email;
+		$current_contact_name = $current_user->user_registration_contact_name;
+		$current_contact_relationship = $current_user->user_registration_contact_relationship;
+		$current_contact_email = $current_user->user_registration_contact_email;
+		$current_contact_phone_number = $current_user->user_registration_contact_phone_number;
+
+
 
 		$account_first_name = ! empty( $_POST['account_first_name'] ) ? wptravel_clean_vars( wp_unslash( $_POST['account_first_name'] ) ) : '';
 		$account_last_name  = ! empty( $_POST['account_last_name'] ) ? wptravel_clean_vars( wp_unslash( $_POST['account_last_name'] ) ) : '';
 		$account_email      = ! empty( $_POST['account_email'] ) ? wptravel_clean_vars( wp_unslash( $_POST['account_email'] ) ) : '';
+		$account_contact_name = ! empty( $_POST['account_contact_name'] ) ? wptravel_clean_vars( wp_unslash( $_POST['account_contact_name'] ) ) : '';
+		$account_contact_relationship = ! empty( $_POST['account_contact_relationship'] ) ? wptravel_clean_vars( wp_unslash( $_POST['account_contact_relationship'] ) ) : '';
+		$account_contact_email  = ! empty( $_POST['account_contact_email'] ) ? wptravel_clean_vars( wp_unslash( $_POST['account_contact_email'] ) ) : '';
+		$account_contact_phone_number      = ! empty( $_POST['account_contact_phone_number'] ) ? wptravel_clean_vars( wp_unslash( $_POST['account_contact_phone_number'] ) ) : '';
+
 		$pass_cur           = ! empty( $_POST['password_current'] ) ? wptravel_clean_vars( wp_unslash( $_POST['password_current'] ) ) : '';
 		$pass1              = ! empty( $_POST['password_1'] ) ? wptravel_clean_vars( wp_unslash( $_POST['password_1'] ) ) : '';
 		$pass2              = ! empty( $_POST['password_2'] ) ? wptravel_clean_vars( wp_unslash( $_POST['password_2'] ) ) : '';
@@ -349,6 +381,11 @@ class Wp_Travel_Form_Handler {
 		$user->ID         = $user_id;
 		$user->first_name = $account_first_name;
 		$user->last_name  = $account_last_name;
+		$user->user_registration_contact_name  = $account_contact_name;
+		$user->user_registration_contact_relationship  = $account_contact_relationship;
+		$user->user_registration_contact_email  = $account_contact_email;
+		$user->user_registration_contact_phone_number  = $account_contact_phone_number;
+		
 
 		// Prevent emails being displayed, or leave alone.
 		$user->display_name = is_email( $current_user->display_name ) ? $user->first_name : $current_user->display_name;
@@ -359,13 +396,17 @@ class Wp_Travel_Form_Handler {
 			array(
 				'account_first_name' => __( 'First name', 'wp-travel' ),
 				'account_last_name'  => __( 'Last name', 'wp-travel' ),
-				'account_email'      => __( 'Email address', 'wp-travel' ),
+				'account_email'      => __( '個人電郵', 'wp-travel' ),
+				'account_contact_name'      => __( '聯絡人', 'wp-travel' ),
+				'account_contact_relationship'      => __( '個人關係', 'wp-travel' ),
+				'account_contact_email'      => __( '聯絡人電郵', 'wp-travel' ),
+				'account_contact_phone_number'      => __( '聯絡人電話', 'wp-travel' ),
 			)
 		);
 
 		foreach ( $required_fields as $field_key => $field_name ) {
 			if ( empty( $_POST[ $field_key ] ) ) {
-				WPTravel()->notices->add( sprintf( __( '%s is a required field.', 'wp-travel' ), esc_html( $field_name ) ), 'error' );
+				WPTravel()->notices->add( sprintf( __( '請填寫 %s ', 'wp-travel' ), esc_html( $field_name ) ), 'error' );
 			}
 		}
 
@@ -380,19 +421,28 @@ class Wp_Travel_Form_Handler {
 		}
 
 		if ( ! empty( $pass_cur ) && empty( $pass1 ) && empty( $pass2 ) ) {
-			WPTravel()->notices->add( __( 'Please Fill Out All Password Fields.', 'wp-travel' ), 'error' );
+			WPTravel()->notices->add( __( '請填寫所有格子', 'wp-travel' ), 'error' );
 			$save_pass = false;
 		} elseif ( ! empty( $pass1 ) && empty( $pass_cur ) ) {
-			WPTravel()->notices->add( __( 'Please Enter Your Current Password', 'wp-travel' ), 'error' );
+			WPTravel()->notices->add( __( '請輸入您當前的密碼', 'wp-travel' ), 'error' );
 			$save_pass = false;
 		} elseif ( ! empty( $pass1 ) && empty( $pass2 ) ) {
-			WPTravel()->notices->add( __( 'Please re-enter your password', 'wp-travel' ), 'error' );
+			WPTravel()->notices->add( __( '請重新輸入你的密碼', 'wp-travel' ), 'error' );
 			$save_pass = false;
 		} elseif ( ( ! empty( $pass1 ) || ! empty( $pass2 ) ) && $pass1 !== $pass2 ) {
-			WPTravel()->notices->add( __( 'New Passwords do not match', 'wp-travel' ), 'error' );
+			WPTravel()->notices->add( __( '新密碼不匹配', 'wp-travel' ), 'error' );
 			$save_pass = false;
 		} elseif ( ! empty( $pass1 ) && ! wp_check_password( $pass_cur, $current_user->user_pass, $current_user->ID ) ) {
-			WPTravel()->notices->add( __( 'Your current password is incorrect', 'wp-travel' ), 'error' );
+			WPTravel()->notices->add( __( '您當前的密碼不正確', 'wp-travel' ), 'error' );
+			$save_pass = false;
+		}elseif ( ! empty( $pass1 ) && preg_match('/[A-Za-z]/', $pass1) == 0 ) {
+			WPTravel()->notices->add( __( '密碼只至少要有一個英文字', 'wp-travel' ), 'error' );
+			$save_pass = false;
+		}elseif (! empty( $pass1 ) && preg_match('/[0-9]/', $pass1) == 0 ) {
+			WPTravel()->notices->add( __( '密碼只至少要有一個數字', 'wp-travel' ), 'error' );
+			$save_pass = false;
+		}elseif (! empty( $pass1 ) && strlen($pass1) < 8 ) {
+			WPTravel()->notices->add( __( '密碼只至少要有8個字', 'wp-travel' ), 'error' );
 			$save_pass = false;
 		}
 
@@ -412,8 +462,12 @@ class Wp_Travel_Form_Handler {
 
 		if ( wptravel_get_notice_count( 'error' ) === 0 ) {
 			wp_update_user( $user );
+			update_user_meta( $user_id,'user_contact_name', $account_contact_name, false );
+			update_user_meta( $user_id, 'user_contact_relationship', $account_contact_relationship, false ); // add the meta
+			update_user_meta( $user_id, 'user_contact_email', $account_contact_email, false ); // add the meta
+			update_user_meta( $user_id, 'user_contact_phone_number', $account_contact_phone_number, false );
 
-			WPTravel()->notices->add( __( 'Account Details Updated Successfully', 'wp-travel' ), 'success' );
+			WPTravel()->notices->add( __( '已更新', 'wp-travel' ), 'success' );
 
 			do_action( 'wp_travel__save_account_details', $user->ID );
 

@@ -36,7 +36,7 @@ if ( ! function_exists( 'wptravel_create_new_customer' ) ) {
 	 * @param  string $password Customer password.
 	 * @return int|WP_Error Returns WP_Error on failure, Int (user ID) on success.
 	 */
-	function wptravel_create_new_customer( $email, $username = '', $password = '' ) {
+	function wptravel_create_new_customer( $email, $username = '', $password = '',$first_name,$last_name,$contact_name,$contact_email,$contact_phone_number,$contact_relationship ) {
 
 		$settings = wptravel_get_settings();
 
@@ -109,17 +109,28 @@ if ( ! function_exists( 'wptravel_create_new_customer' ) ) {
 				'user_login' => $username,
 				'user_pass'  => $password,
 				'user_email' => $email,
+				'first_name' => $first_name,
+				'last_name' => $last_name,
 				'role'       => 'wp-travel-customer',
 			)
 		);
+
+
 		$new_customer_data = apply_filters(
 			'wptravel_new_customer_data',
 			$new_customer_data
 		);
 
-		$customer_id = wp_insert_user( $new_customer_data );
+		
 
-		if ( is_wp_error( $customer_id ) ) {
+
+		$customer_id = wp_insert_user( $new_customer_data );
+		if ( !is_wp_error( $customer_id ) ) { // check if insert was successful
+			add_user_meta( $customer_id, 'user_contact_name', $contact_name, false ); // add the meta
+			add_user_meta( $customer_id, 'user_contact_email', $contact_email, false ); // add the meta
+			add_user_meta( $customer_id, 'user_contact_phone_number', $contact_phone_number, false ); // add the meta
+			add_user_meta( $customer_id, 'user_contact_relationship', $contact_relationship, false ); // add the meta
+		} else {
 			return new WP_Error( 'registration-error', '<strong>' . __( 'Error:', 'wp-travel' ) . '</strong> ' . __( 'Couldn&#8217;t register you&hellip; please contact us if you continue to have problems.', 'wp-travel' ) );
 		}
 
