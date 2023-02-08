@@ -36,7 +36,7 @@ if ( ! function_exists( 'wptravel_create_new_customer' ) ) {
 	 * @param  string $password Customer password.
 	 * @return int|WP_Error Returns WP_Error on failure, Int (user ID) on success.
 	 */
-	function wptravel_create_new_customer( $email, $username = '', $password = '',$first_name,$last_name,$contact_name,$contact_email,$contact_phone_number,$contact_relationship ) {
+	function wptravel_create_new_customer( $email, $username = '', $password = '', $pass2,$first_name,$last_name,$contact_name,$contact_email,$contact_phone_number,$contact_relationship ) {
 
 		$settings = wptravel_get_settings();
 
@@ -91,6 +91,22 @@ if ( ! function_exists( 'wptravel_create_new_customer' ) ) {
 
 		} else {
 			$password_generated = false;
+	
+			if ( empty( $password ) && empty( $pass2 ) ) {
+				return new WP_Error( 'registration-error-invalid-password', __( '請填寫所有格子.', 'wp-travel' ) );
+			} elseif ( ! empty( $password ) && empty( $pass2 ) ) {
+				return new WP_Error( 'registration-error-invalid-password', __( '請重新輸入你的密碼.', 'wp-travel' ) );
+			} elseif (  empty( $password ) && ! empty( $pass2 ) ) {
+				return new WP_Error( 'registration-error-invalid-password', __( '請重新輸入你的密碼.', 'wp-travel' ) );
+			} elseif ( ( ! empty( $password ) || ! empty( $pass2 ) ) && $password !== $pass2 ) {
+				return new WP_Error( 'registration-error-invalid-password', __( '密碼不匹配.', 'wp-travel' ) );
+			}elseif ( ! empty( $password ) && preg_match('/[A-Za-z]/', $password) == 0 ) {
+				return new WP_Error( 'registration-error-invalid-password', __( '密碼只至少要有一個英文字.', 'wp-travel' ) );
+			}elseif (! empty( $password ) && preg_match('/[0-9]/', $password) == 0 ) {
+				return new WP_Error( 'registration-error-invalid-password', __( '密碼只至少要有一個數字.', 'wp-travel' ) );
+			}elseif (! empty( $password ) && strlen($password) < 8 ) {
+				return new WP_Error( 'registration-error-invalid-password', __( '密碼只至少要有8個字.', 'wp-travel' ) );
+			}
 		}
 
 		// Use WP_Error to handle registration errors.

@@ -40,7 +40,7 @@ if ( ! empty( $_POST['register'] ) && wp_verify_nonce( $nonce_value, 'wp-travel-
 		<?php if ( 'yes' === $enable_my_account_customer_registration ) : ?>
 			<!-- Registration form -->
 			<form method="post" class="register-form" <?php echo $reg_form_toogle; ?> >
-				<h3><?php esc_html_e( 'Register', 'wp-travel' ); ?></h3>
+				<h3><?php esc_html_e( '申請帳戶', 'wp-travel' ); ?></h3>
 				<?php if ( 'no' === $generate_username_from_email ) : ?>
 					<span class="user-name">
 						<input name="username" type="text" placeholder="<?php echo esc_attr__( '英國電話 eg. 7120123235', 'wp-travel' ); ?>"/>
@@ -56,20 +56,24 @@ if ( ! empty( $_POST['register'] ) && wp_verify_nonce( $nonce_value, 'wp-travel-
 					<input name="email" type="text" placeholder="<?php echo esc_attr__( '個人電郵', 'wp-travel' ); ?>"/>
 				</span>
 					<span class="user-name">
-						<input name="account_contact_name" type="text" placeholder="<?php echo esc_attr__( '聯絡人:', 'wp-travel' ); ?>"/>
+						<input name="account_contact_name" type="text" placeholder="<?php echo esc_attr__( '聯絡人', 'wp-travel' ); ?>"/>
 					</span>
 					<span class="user-name">
-						<input name="account_contact_email" type="text" placeholder="<?php echo esc_attr__( '聯絡人關係:', 'wp-travel' ); ?>"/>
+						<input name="account_contact_email" type="text" placeholder="<?php echo esc_attr__( '聯絡人電郵', 'wp-travel' ); ?>"/>
 					</span>
 					<span class="user-name">
-						<input name="account_contact_phone_number" type="text" placeholder="<?php echo esc_attr__( '聯絡人電話:', 'wp-travel' ); ?>"/>
+						<input name="account_contact_phone_number" type="text" placeholder="<?php echo esc_attr__( '聯絡人電話', 'wp-travel' ); ?>"/>
 					</span>
 					<span class="user-name">
-						<input name="account_contact_relationship" type="text" placeholder="<?php echo esc_attr__( '聯絡人關係:', 'wp-travel' ); ?>"/>
+						<input name="account_contact_relationship" type="text" placeholder="<?php echo esc_attr__( '聯絡人關係', 'wp-travel' ); ?>"/>
 					</span>
 				<?php if ( 'no' === $generate_user_password ) : ?>
 					<span class="user-password">
-						<input name="password" type="password" placeholder="<?php echo esc_attr__( '密碼', 'wp-travel' ); ?>"/>
+						<input name="password" type="password" placeholder="<?php echo esc_attr__( '密碼 (至少要有一個英文字,一個數字及由8個字組成)', 'wp-travel' ); ?>"/>
+						
+					</span>
+					<span class="user-password">
+						<input name="pass2" type="password" placeholder="<?php echo esc_attr__( '確認密碼', 'wp-travel' ); ?>"/>
 					</span>
 				<?php endif; ?>
 				<?php do_action( 'wp_travel_after_registration_form_password', $settings ); ?>
@@ -81,8 +85,8 @@ if ( ! empty( $_POST['register'] ) && wp_verify_nonce( $nonce_value, 'wp-travel-
 					</div>
 
 				<?php wp_nonce_field( 'wp-travel-register', 'wp-travel-register-nonce' ); ?>
-				<button  type="submit" name="register" value="<?php esc_attr_e( 'Register', 'wp-travel' ); ?>" ><?php esc_attr_e( 'Register', 'wp-travel' ); ?></button>
-				<p class="message"><?php echo esc_attr__( 'Already registered?', 'wp-travel' ); ?> <a href="#"><?php echo esc_attr__( 'Sign In', 'wp-travel' ); ?></a></p>
+				<button  type="submit" name="register" value="<?php esc_attr_e( 'Register', 'wp-travel' ); ?>" ><?php esc_attr_e( '申請帳戶', 'wp-travel' ); ?></button>
+				<p class="message"><?php echo esc_attr__( '已有帳戶?', 'wp-travel' ); ?> <a href="#"><?php echo esc_attr__( '登入', 'wp-travel' ); ?></a></p>
 			</form>
 		<?php endif; ?>
 			<!-- Login Form -->
@@ -107,9 +111,9 @@ if ( ! empty( $_POST['register'] ) && wp_verify_nonce( $nonce_value, 'wp-travel-
 							</p>
 						</div>
 					</div>
-				<button  type="submit" name="login" value="<?php esc_attr_e( '登入', 'wp-travel' ); ?>" ><?php esc_attr_e( 'Login', 'wp-travel' ); ?></button>
+				<button  type="submit" name="login" value="<?php esc_attr_e( '登入', 'wp-travel' ); ?>" ><?php esc_attr_e( '登入', 'wp-travel' ); ?></button>
 				<?php if ( 'yes' === $enable_my_account_customer_registration ) : ?>
-					<p class="message"><?php echo esc_html__( '未有帳戶?', 'wp-travel' ); ?> <a href="#"><?php echo esc_html__( 'Create an account', 'wp-travel' ); ?></a></p>
+					<p class="message"><?php echo esc_html__( '未有帳戶?', 'wp-travel' ); ?> <a href="#"><?php echo esc_html__( '創建新帳戶', 'wp-travel' ); ?></a></p>
 				<!-- <p>
 					<?php echo esc_html__( '未有帳戶?', 'wp-travel' ); ?>
 					<a href="https://prodeeptravel.com/register/"><?php echo esc_html__( '申請帳戶', 'wp-travel' ); ?></a>

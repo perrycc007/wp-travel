@@ -113,6 +113,8 @@ class Wp_Travel_Form_Handler {
 
 			$username = 'no' === $generate_username_from_email ? trim( sanitize_text_field( wp_unslash( $_POST['username'] ) ) ) : ''; // phpcs:ignore
 			$password = 'no' === $generate_user_password ? sanitize_text_field( wp_unslash( $_POST['password'] ) ) : ''; // phpcs:ignore
+			$pass2 = 'no' === $generate_user_password ? sanitize_text_field( wp_unslash( $_POST['pass2'] ) ) : ''; // phpcs:ignore
+
 			$email    = isset( $_POST['email'] ) ? trim( sanitize_text_field( wp_unslash( $_POST['email'] ) )) : '';
 			$first_name    = isset( $_POST['account_first_name'] ) ? trim( sanitize_text_field( wp_unslash( $_POST['account_first_name'] ) )) : '';
 			$last_name    = isset( $_POST['account_last_name'] ) ? trim( sanitize_text_field( wp_unslash( $_POST['account_last_name'] ) )) : '';
@@ -126,11 +128,15 @@ class Wp_Travel_Form_Handler {
 				$validation_error = new WP_Error();
 				$validation_error = apply_filters( 'wp_travel_process_registration_errors', $validation_error, $username, $password, $email );
 
+
+
+
+
 				if ( $validation_error->get_error_code() ) {
 					throw new Exception( $validation_error->get_error_message() );
 				}
 
-				$new_customer = wptravel_create_new_customer( sanitize_email( $email ), $username, $password,$first_name,$last_name,$contact_name,$contact_email,$contact_phone_number,$contact_relationship );
+				$new_customer = wptravel_create_new_customer( sanitize_email( $email ), $username, $password,$pass2,$first_name,$last_name,$contact_name,$contact_email,$contact_phone_number,$contact_relationship );
 
 				if ( is_wp_error( $new_customer ) ) {
 					throw new Exception( $new_customer->get_error_message() );
