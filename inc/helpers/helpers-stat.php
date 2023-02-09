@@ -563,6 +563,35 @@ function wptravel_get_booking_status() {
 	return apply_filters( 'wp_travel_booking_status_list', $status );
 }
 
+function wptravel_get_customer_trip_status() {
+	$status = array(
+		'pending'          => array(
+			'color' => '#FF9800',
+			'text'  => __( 'Pending', 'wp-travel' ),
+		),
+		'arrived'   => array(
+			'color' => '#008600',
+			'text'  => __( 'Arrived', 'wp-travel' ),
+		),
+		'missing'             => array(
+			'color' => '#FC0803',
+			'text'  => __( 'Missing', 'wp-travel' ),
+		),
+		'left'  => array(
+			'color' => '#8F8F8F',
+			'text'  => __( 'Left', 'wp-travel' ),
+		),
+		'ended'  => array(
+			'color' => '#51949E',
+			'text'  => __( 'Ended', 'wp-travel' ),
+		),
+	);
+
+	return apply_filters( 'wp_travel_customer_trip_status_list', $status );
+}
+
+
+
 function wptravel_make_stat_data( $stat_datas, $show_empty = false ) {
 	if ( ! $stat_datas ) {
 		return;

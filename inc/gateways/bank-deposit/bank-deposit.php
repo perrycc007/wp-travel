@@ -20,6 +20,7 @@ function wptravel_booking_bank_deposit( $booking_id ) {
 
 		$payment_mode = get_post_meta( $payment_id, 'wp_travel_payment_mode', true );
 		update_post_meta( $booking_id, 'wp_travel_booking_status', 'booked' );
+		update_post_meta( $booking_id, 'wp_travel_customer_trip_status', 'pending' );
 		update_post_meta( $payment_id, 'wp_travel_payment_status', 'waiting_voucher' );
 	}
 

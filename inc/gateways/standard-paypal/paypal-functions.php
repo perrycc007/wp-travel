@@ -112,6 +112,7 @@ function wptravel_paypal_ipn_process() {
 		if ( ! empty( $_POST['payment_status'] ) && $_POST['payment_status'] == 'Pending' ) { // @phpcs:ignore
 				// Update booking status and Payment args.
 				update_post_meta( $booking_id, 'wp_travel_booking_status', 'booked' );
+				update_post_meta( $booking_id, 'wp_travel_customer_trip_status', 'pending' );
 				$payment_id = get_post_meta( $booking_id, 'wp_travel_payment_id', true );
 
 				$payment_ids = array();

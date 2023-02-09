@@ -68,7 +68,9 @@ class WP_Travel_Admin_Booking {
 		$new_columns['trip_code']      = __( 'Trip Code', 'wp-travel' );
 		$new_columns['contact_name']   = __( 'Contact Name', 'wp-travel' );
 		$new_columns['booking_status'] = __( 'Booking Status', 'wp-travel' );
+		$new_columns['customer_trip_status'] = __( 'Customer Trip Status', 'wp-travel' );
 		$new_columns['date']           = __( 'Booking Date', 'wp-travel' );
+		
 		return $new_columns;
 	}
 
@@ -136,6 +138,16 @@ class WP_Travel_Admin_Booking {
 				}
 				echo '<span class="wp-travel-status wp-travel-booking-status" style="background: ' . esc_attr( $status[ $label_key ]['color'] ) . ' ">' . esc_attr( $status[ $label_key ]['text'] ) . '</span>';
 				break;
+			case 'customer_trip_status':
+				$status    = wptravel_get_customer_trip_status();
+				$label_key = get_post_meta( $id, 'wp_travel_customer_trip_status', true );
+				if ( '' === $label_key ) {
+					$label_key = 'pending';
+					update_post_meta( $id, 'wp_travel_customer_trip_status', $label_key );
+				}
+				echo '<span class="wp-travel-status wp-travel-booking-status" style="background: ' . esc_attr( $status[ $label_key ]['color'] ) . ' ">' . esc_attr( $status[ $label_key ]['text'] ) . '</span>';
+				break;
+
 			default:
 				break;
 		} // end switch
@@ -497,6 +509,11 @@ class WP_Travel_Admin_Booking {
 		// Updating booking status.
 		$booking_status = isset( $_POST['wp_travel_booking_status'] ) ? sanitize_text_field( wp_unslash( $_POST['wp_travel_booking_status'] ) ) : 'pending';
 		update_post_meta( $booking_id, 'wp_travel_booking_status', sanitize_text_field( $booking_status ) );
+
+		// Updating booking customer trip status.
+		$customer_trip_status = isset( $_POST['wp_travel_customer_trip_status'] ) ? sanitize_text_field( wp_unslash( $_POST['wp_travel_customer_trip_status'] ) ) : 'pending';
+		update_post_meta( $booking_id, 'wp_travel_customer_trip_status', sanitize_text_field( $customer_trip_status ) );
+
 
 		$checkout_fields = wptravel_get_checkout_form_fields();
 		foreach ( $checkout_fields as $field_type => $fields ) {

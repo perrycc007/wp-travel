@@ -845,7 +845,7 @@ function wptravel_publish_metabox() {
 			$customer_trip_label_key = get_post_meta( $post->ID, 'wptravel_get_customer_trip_status', true );
 			?>
 
-			<label for="wp-travel-post-id"><?php esc_html_e( 'Booking Status', 'wp-travel' ); ?></label>
+			<label for="wp-travel-post-id"><?php esc_html_e( 'Customer Trip Status', 'wp-travel' ); ?></label>
 			<select id="wptravel_get_customer_trip_status" name="wptravel_get_customer_trip_status" >
 			<?php foreach ( $customer_trip_status as $value => $st ) : ?>
 				<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $value, $customer_trip_label_key ); ?>>
@@ -878,7 +878,7 @@ function wptravel_booking_payment_columns( $booking_columns ) {
 
 	$booking_columns['payment_mode']   = __( 'Payment Mode', 'wp-travel' );
 	$booking_columns['payment_status'] = __( 'Payment Status', 'wp-travel' );
-	$booking_columns['customer_trip_status'] = __( 'Customer Trip Status', 'wp-travel' );
+
 	$booking_columns['date']           = $date;
 	return $booking_columns;
 }
