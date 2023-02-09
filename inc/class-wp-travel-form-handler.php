@@ -441,8 +441,8 @@ class Wp_Travel_Form_Handler {
 		} elseif ( ! empty( $pass1 ) && ! wp_check_password( $pass_cur, $current_user->user_pass, $current_user->ID ) ) {
 			WPTravel()->notices->add( __( '您當前的密碼不正確', 'wp-travel' ), 'error' );
 			$save_pass = false;
-		}elseif ( ! empty( $pass1 ) && preg_match('/[A-Za-z]/', $pass1) == 0 ) {
-			WPTravel()->notices->add( __( '密碼只至少要有一個英文字', 'wp-travel' ), 'error' );
+		}elseif ( ! empty( $pass1 ) && preg_match('/[A-Z]/', $pass1) == 0 ) {
+			WPTravel()->notices->add( __( '密碼只至少要有一個大楷英文字', 'wp-travel' ), 'error' );
 			$save_pass = false;
 		}elseif (! empty( $pass1 ) && preg_match('/[0-9]/', $pass1) == 0 ) {
 			WPTravel()->notices->add( __( '密碼只至少要有一個數字', 'wp-travel' ), 'error' );
