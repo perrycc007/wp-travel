@@ -252,6 +252,7 @@ function wptravel_book_now() {
 	if ( $cart_total['discount'] > 0 && ! $cart_total['total'] ) {
 		update_post_meta( $booking_id, 'wp_travel_booking_status', 'booked' );
 		update_post_meta( $payment_id, 'wp_travel_payment_status', 'paid' );
+		update_post_meta( $payment_id, 'wp_travel_customer_trip_status', 'pending' );
 	}
 
 	// Clear Cart After process is complete.
