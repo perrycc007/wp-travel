@@ -892,7 +892,7 @@ function wptravel_booking_payment_columns( $booking_columns ) {
  * @param  int    $id          Post ID.
  */
 function wptravel_booking_payment_manage_columns( $column_name, $id ) {
-	$payment_info = wp_travel_payment_status( $id );
+	$payment_info = wptravel_booking_data( $id );
 	switch ( $column_name ) {
 		case 'payment_status':
 			$payment_id = $payment_info['payment_id'];
