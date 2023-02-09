@@ -389,7 +389,7 @@ class Wp_Travel_Form_Handler {
 		$user->last_name  = $account_last_name;
 		$user->user_registration_contact_name  = $account_contact_name;
 		$user->user_registration_contact_relationship  = $account_contact_relationship;
-		$user->user_registration_contact_email  = $account_contact_email;
+
 		$user->user_registration_contact_phone_number  = $account_contact_phone_number;
 		
 
@@ -419,12 +419,22 @@ class Wp_Travel_Form_Handler {
 		if ( $account_email ) {
 			$account_email = sanitize_email( $account_email );
 			if ( ! is_email( $account_email ) ) {
-				WPTravel()->notices->add( __( 'Please Provide a valid email address', 'wp-travel' ), 'error' );
+				WPTravel()->notices->add( __( '請提供一個有效的電子郵件地址', 'wp-travel' ), 'error' );
 			} elseif ( email_exists( $account_email ) && $account_email !== $current_user->user_email ) {
-				WPTravel()->notices->add( __( 'The email address is already registered', 'wp-travel' ), 'error' );
+				WPTravel()->notices->add( __( '該電子郵件地址已被註冊', 'wp-travel' ), 'error' );
 			}
 			$user->user_email = $account_email;
 		}
+		if ( $account_contact_email ) {
+			$account_contact_email = sanitize_email( $account_contact_email );
+			if ( ! is_email( $account_contact_email ) ) {
+				WPTravel()->notices->add( __( '請提供一個有效的聯絡人電子郵件地址', 'wp-travel' ), 'error' );
+			} 
+			$user->user_registration_contact_email  = $account_contact_email;
+		}
+
+
+
 
 		if ( ! empty( $pass_cur ) && empty( $pass1 ) && empty( $pass2 ) ) {
 			WPTravel()->notices->add( __( '請填寫所有格子', 'wp-travel' ), 'error' );
