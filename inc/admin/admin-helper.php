@@ -842,11 +842,11 @@ function wptravel_publish_metabox() {
 		<div class="misc-pub-section misc-pub-booking-status">
 			<?php
 			$customer_trip_status    = wptravel_get_customer_trip_status();
-			$customer_trip_label_key = get_post_meta( $post->ID, 'wptravel_get_customer_trip_status', true );
+			$customer_trip_label_key = get_post_meta( $post->ID, 'wp_travel_customer_trip_status', true );
 			?>
 
 			<label for="wp-travel-post-id"><?php esc_html_e( 'Customer Trip Status', 'wp-travel' ); ?></label>
-			<select id="wptravel_get_customer_trip_status" name="wptravel_get_customer_trip_status" >
+			<select id="wp_travel_customer_trip_status" name="wp_travel_customer_trip_status" >
 			<?php foreach ( $customer_trip_status as $value => $st ) : ?>
 				<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $value, $customer_trip_label_key ); ?>>
 					<?php echo esc_html( $customer_trip_status[ $value ]['text'] ); ?>

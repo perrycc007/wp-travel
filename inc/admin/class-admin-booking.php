@@ -510,7 +510,7 @@ class WP_Travel_Admin_Booking {
 		$booking_status = isset( $_POST['wp_travel_booking_status'] ) ? sanitize_text_field( wp_unslash( $_POST['wp_travel_booking_status'] ) ) : 'pending';
 		update_post_meta( $booking_id, 'wp_travel_booking_status', sanitize_text_field( $booking_status ) );
 
-		// Updating booking customer trip status.
+		// Updating customer trip status.
 		$customer_trip_status = isset( $_POST['wp_travel_customer_trip_status'] ) ? sanitize_text_field( wp_unslash( $_POST['wp_travel_customer_trip_status'] ) ) : 'pending';
 		update_post_meta( $booking_id, 'wp_travel_customer_trip_status', sanitize_text_field( $customer_trip_status ) );
 
