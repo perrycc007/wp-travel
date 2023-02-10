@@ -214,7 +214,7 @@ class Wp_Travel_User_Account {
 
 		if ( empty( $login ) ) {
 
-			WPTravel()->notices->add( __( 'Enter an email or username.', 'wp-travel' ), 'error' );
+			WPTravel()->notices->add( __( '請輸入電子郵件或英國電話號碼', 'wp-travel' ), 'error' );
 
 			return false;
 
@@ -241,13 +241,13 @@ class Wp_Travel_User_Account {
 
 		if ( ! $user_data ) {
 
-			WPTravel()->notices->add( __( 'Invalid username or email.', 'wp-travel' ), 'error' );
+			WPTravel()->notices->add( __( '電話號碼或電子郵件無效', 'wp-travel' ), 'error' );
 
 			return false;
 		}
 
 		if ( is_multisite() && ! is_user_member_of_blog( $user_data->ID, get_current_blog_id() ) ) {
-			WPTravel()->notices->add( __( 'Invalid username or email.', 'wp-travel' ), 'error' );
+			WPTravel()->notices->add( __( '電話號碼或電子郵件無效', 'wp-travel' ), 'error' );
 
 			return false;
 		}
@@ -261,7 +261,7 @@ class Wp_Travel_User_Account {
 
 		if ( ! $allow ) {
 
-			WPTravel()->notices->add( __( 'Password reset is not allowed for this user.', 'wp-travel' ), 'error' );
+			WPTravel()->notices->add( __( '此用戶不允許重置密碼', 'wp-travel' ), 'error' );
 
 			return false;
 
@@ -283,7 +283,7 @@ class Wp_Travel_User_Account {
 				'reset_key'  => $key,
 			)
 		);
-
+		
 		// Create email headers.
 		$from    = get_option( 'admin_email' );
 		$email   = new WP_Travel_Emails();
@@ -303,10 +303,18 @@ class Wp_Travel_User_Account {
 				// return false;
 
 			}
+			do_action('wp_travel_send_customer_reset_password_link', $user_data->nickname, $email_content);
+			// if ( ! techiepress_send_sms_to_customer('+44'.$user_data->nickname, $email_content, 'Prodeeptravel' )){
+			// 	// return false;
+			// }
 		}
 
 		return true;
 	}
+
+
+
+
 
 	/**
 	 * Handles resetting the user's password.

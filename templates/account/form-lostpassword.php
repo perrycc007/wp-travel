@@ -29,8 +29,8 @@ wptravel_print_notices();
 
 				<p class="wp-travel-form-row wp-travel-form-row--first form-row form-row-first clearfix">
 				<span class="user-username">
-					<!-- <label for="user_login"><?php esc_html_e( 'Username or email', 'wp-travel' ); ?></label> -->
-					<input class="wp-travel-Input wp-travel-Input--text input-text" type="text" name="user_login" id="user_login" placeholder="<?php echo esc_attr__( 'email or username', 'wp-travel' ); ?>" />
+					<!-- <label for="user_login"><?php esc_html_e( '英國電話號碼', 'wp-travel' ); ?></label> -->
+					<input class="wp-travel-Input wp-travel-Input--text input-text" type="text" name="user_login" id="user_login" placeholder="<?php echo esc_attr__( '英國電話號碼 eg.07537121324', 'wp-travel' ); ?>" />
 				</span>	
 				</p>
 
@@ -41,7 +41,7 @@ wptravel_print_notices();
 				<p class="wp-travel-form-row form-row">
 					<input type="hidden" name="wp_travel_reset_password" value="true" />
 					<input type="hidden" name="_nonce" value="<?php echo esc_attr( WP_Travel::create_nonce() ); ?>" />
-					<button type="submit" class="wp-travel-Button button" value="<?php esc_attr_e( 'Reset password', 'wp-travel' ); ?>"><?php esc_html_e( 'Reset password', 'wp-travel' ); ?></button>
+					<button type="submit" class="wp-travel-Button button" value="<?php esc_attr_e( 'Reset password', 'wp-travel' ); ?>"><?php esc_html_e( '重設密碼', 'wp-travel' ); ?></button>
 				</p>
 
 				<?php wp_nonce_field( 'wp_travel_lost_password' ); ?>

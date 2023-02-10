@@ -43,7 +43,7 @@ if ( ! empty( $_POST['register'] ) && wp_verify_nonce( $nonce_value, 'wp-travel-
 				<h3><?php esc_html_e( '申請帳戶', 'wp-travel' ); ?></h3>
 				<?php if ( 'no' === $generate_username_from_email ) : ?>
 					<span class="user-name">
-						<input name="username" type="text" placeholder="<?php echo esc_attr__( '英國電話 eg. 7120123235', 'wp-travel' ); ?>"/>
+						<input name="username" type="text" placeholder="<?php echo esc_attr__( '電話 eg. 447120123235/85291929195', 'wp-travel' ); ?>"/>
 					</span>
 				<?php endif; ?>
 				<span class="user-name">
