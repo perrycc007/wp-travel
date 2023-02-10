@@ -93,7 +93,7 @@ if ( ! empty( $_POST['register'] ) && wp_verify_nonce( $nonce_value, 'wp-travel-
 			<form method="post" class="login-form" <?php echo esc_attr( $login_form_toogle ); ?> >
 					<h3><?php esc_html_e( '登入', 'wp-travel' ); ?></h3>
 					<span class="user-username">
-						<input name="username" type="text" placeholder="<?php echo esc_attr__( '英國電話號碼', 'wp-travel' ); ?>"/>
+						<input name="username" type="text" placeholder="<?php echo esc_attr__( '電話 eg. 447120123235/85291929195', 'wp-travel' ); ?>"/>
 					</span>
 					<span class="user-password">
 						<input name="password" type="password" placeholder="<?php echo esc_attr__( '密碼', 'wp-travel' ); ?>"/>

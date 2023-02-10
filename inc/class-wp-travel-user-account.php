@@ -274,7 +274,7 @@ class Wp_Travel_User_Account {
 
 		// Get password reset key (function introduced in WordPress 4.4).
 		$key = get_password_reset_key( $user_data );
-
+		$rp_link =  network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user_login), 'login') ;
 		// Send email notification.
 		$email_content = wptravel_get_template_html(
 			'emails/customer-lost-password.php',
@@ -303,7 +303,7 @@ class Wp_Travel_User_Account {
 				// return false;
 
 			}
-			do_action('wp_travel_send_customer_reset_password_link', $user_data->nickname, $email_content);
+			do_action('wp_travel_send_customer_reset_password_link', $user_data->nickname, $rp_link);
 			// if ( ! techiepress_send_sms_to_customer('+44'.$user_data->nickname, $email_content, 'Prodeeptravel' )){
 			// 	// return false;
 			// }
